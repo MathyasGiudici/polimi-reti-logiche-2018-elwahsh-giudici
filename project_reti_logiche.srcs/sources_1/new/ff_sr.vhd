@@ -1,10 +1,10 @@
---------------------------------------------------------------------------------
--- Company: El Wahsh - Giudici
+----------------------------------------------------------------------------------
+-- Company: 
 -- Engineer: 
 -- 
--- Create Date: 22.12.2017 16:40:01
+-- Create Date: 05.02.2018 19:25:34
 -- Design Name: 
--- Module Name: project_reti_logiche - Behavioral
+-- Module Name: ff_sr - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -31,28 +31,32 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity project_reti_logiche is
-    Port ( i_clk : in STD_LOGIC;
-           i_start : in STD_LOGIC;
-           i_rst : in STD_LOGIC;
-           i_data : in STD_LOGIC_VECTOR (7 downto 0);
-           o_address : out STD_LOGIC_VECTOR (15 downto 0);
-           o_done : out STD_LOGIC;
-           o_en : out STD_LOGIC;
-           o_we : out STD_LOGIC;
-           o_data : out STD_LOGIC_VECTOR (7 downto 0));
-end project_reti_logiche;
-
-architecture Behavioral of project_reti_logiche is
-    component ff_sr is
+-- FlipFlop tipo SetReset "modificato" ad uso registro di memoria
+entity ff_sr is
     Port ( clk : in STD_LOGIC;
            set : in STD_LOGIC;
            reset : in STD_LOGIC;
            i_mem : out STD_LOGIC_VECTOR (7 downto 0);
            o_mem : out STD_LOGIC_VECTOR (7 downto 0));
-    end component;
+end ff_sr;
+
+architecture Behavioral of ff_sr is
+
 begin
-    
-    
+    process(clk)
+    begin
+        --Fisso il valore sul fronte di discesa
+        if(clk'event and clk = '0' ) then
+            if( set= '1' and reset = '0') then
+                o_mem(7 downto 0) <= i_mem (7 downto 0);
+             elsif( set= '0' and reset = '1') then
+                o_mem(7 downto 0) <= '00000000';
+             elsif( set= '0' and reset = '0') then
+                null;
+             elsif( set= '1' and reset = '1') then
+                o_mem(7 downto 0) <= 'XXXXXXXX';
+             end if;
+        end if;
+    end process;
 
 end Behavioral;
