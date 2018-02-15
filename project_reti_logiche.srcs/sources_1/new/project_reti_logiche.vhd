@@ -30,6 +30,11 @@
 library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.std_logic_unsigned.all;
+
+
+--Componente Comparatore a 8 bit
+-- restituice 1 in uscita se il valore è uguale o maggiore alla soglia,
+-- altrimenti 0
 entity compara_soglia is
  Port (     clk : in std_logic;
             i_soglia: in std_logic_vector (7 downto 0);
@@ -39,7 +44,16 @@ end compara_soglia;
 
 architecture Behavioral of compara_soglia is
 begin
-
+process(i_soglia,i_value,clk)
+    begin   
+        if(clk'event and clk='1') then
+            if (i_soglia > i_value ) then  
+                o_result <= '0';
+        elsif (i_soglia <= i_value ) then   
+            o_result <= '1';
+        end if;
+    end if;
+end process;
 end Behavioral;
 
 --Componente Registro ad 8 bit
