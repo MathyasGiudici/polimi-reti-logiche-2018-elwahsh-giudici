@@ -43,7 +43,17 @@ entity project_reti_logiche is
            o_data : out STD_LOGIC_VECTOR (7 downto 0));
 end project_reti_logiche;
 
+
+            
+
 architecture Behavioral of project_reti_logiche is
+
+component compara_soglia is
+    Port ( i_soglia: in STD_LOGIC_VECTOR (7 downto 0);
+            i_value: in STD_LOGIC_VECTOR (7 downto 0);
+            o_result : out STD_LOGIC);
+end component;
+
     component ff_sr is
     Port ( clk : in STD_LOGIC;
            set : in STD_LOGIC;
@@ -51,6 +61,8 @@ architecture Behavioral of project_reti_logiche is
            i_mem : out STD_LOGIC_VECTOR (7 downto 0);
            o_mem : out STD_LOGIC_VECTOR (7 downto 0));
     end component;
+    
+   
 begin
     
     
