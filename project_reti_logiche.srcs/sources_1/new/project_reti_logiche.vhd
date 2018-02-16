@@ -42,7 +42,7 @@ end compara_soglia;
 
 architecture Behavioral of compara_soglia is
 begin
-process(i_soglia,i_value,clk)
+process(clk)
     begin   
         if(clk'event and clk='1') then
             if (i_soglia > i_value ) then  
@@ -106,6 +106,7 @@ begin
         elsif(clk'event and clk='1' and i_set='1') then
             if(appoggio = "11111111")then
                 appoggio <= "00000000";
+               
             else
                 appoggio <= appoggio + "00000001";
             end if;
@@ -113,6 +114,82 @@ begin
     end process;
     o_out <= appoggio;
 end Behavioral;
+
+--Contatore a 16 bit 
+-- funzionamento analogo alla sua controparte ad 8 bit
+library IEEE;
+use IEEE.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+
+entity contatore16 is
+ Port(   clk: in  std_logic;
+            i_set: in std_logic;
+            i_reset: in std_logic;
+            o_out: out std_logic_vector (15 downto 0)
+);
+end contatore16;
+
+
+architecture Behavioral of contatore16 is
+signal appoggio : std_logic_vector (15 downto 0);
+begin
+    process(clk,i_reset,i_set)
+    begin
+        if(i_reset = '1') then
+            appoggio <= "0000000000000000";
+        elsif(clk'event and clk='1' and i_set='1') then
+            if(appoggio = "1111111111111111")then
+                appoggio <= "0000000000000000";
+               
+            else
+                appoggio <= appoggio + "0000000000000001";
+            end if;
+        end if;
+    end process;
+    o_out <= appoggio;
+end Behavioral;
+
+--Componenente coordinata
+--Usa due contatori 8 bit e dei comparatori di soglia per tener traccia
+-- delle coordinate senza doverle ricalcolare a paritire dall'indirizzo
+library IEEE;
+use IEEE.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+
+entity coordinate is
+Port(
+        clk: in std_logic;
+        i_set: in std_logic;
+        i_reset: in std_logic;
+        i_c: in std_logic_vector (7 downto 0);
+        i_r: in std_logic_vector (7 downto 0);
+        o_c: out std_logic_vector (7 downto 0);
+        o_r: out std_logic_vector (7 downto 0)
+);
+end coordinate;
+
+architecture Behavioral of coordinate is
+signal col, rig : std_logic_vector (7 downto 0);
+begin
+    process(clk,i_reset,i_set)
+    begin
+        if(i_reset = '1') then
+            col <= "00000000";
+            rig <= "00000000";
+        elsif(clk'event and clk='1' and i_set='1') then
+            if(col = i_c)then
+                col <= "00000000";
+                rig <= rig + "00000001";
+            else
+                col <= col + "00000001";
+            end if;
+        end if;
+    end process;
+   o_c <= col;
+   o_r <= rig;
+
+end Behavioral;
+
 
 -- Componente memoria.
 -- Se reset viene alzato a 1 si resetta la memoria
@@ -282,12 +359,6 @@ component memoria_interna is
             o_mem_sw : out std_logic_vector (7 downto 0));
 end component;
 
-component contatore is 
-Port(      clk : in std_logic;
-            i_set: in std_logic;
-            i_reset : in std_logic;
-            o_out : out std_logic_vector (7 downto 0));
-end component;
 
 component compara_soglia is
 Port (     clk : in std_logic;
@@ -296,27 +367,57 @@ Port (     clk : in std_logic;
             o_result : out std_logic);
 end component;
 
+component contatore16 is
+ Port(   clk: in  std_logic;
+            i_set: in std_logic;
+            i_reset: in std_logic;
+            o_out: out std_logic_vector (15 downto 0)
+);
+end component;
+
+component coordinate is
+Port(
+        clk: in std_logic;
+        i_set: in std_logic;
+        i_reset: in std_logic;
+        i_c: in std_logic_vector (7 downto 0);
+        i_r: in std_logic_vector (7 downto 0);
+        o_c: out std_logic_vector (7 downto 0);
+        o_r: out std_logic_vector (7 downto 0)
+);
+end component;
+
+
 --Segnali per gestione memoria
 signal soglia, colonne, righe, ne, nw, se, sw, input_memoria: std_logic_vector(7 downto 0);
 signal set_memoria: std_logic;
 signal addr_memoria: std_logic_vector(2 downto 0);
-
---Da rivedere
-signal ss,sc,sr,reset,res: std_logic;
-signal col,rig, value: std_logic_vector (7 downto 0);
+-- Segnali contatori
+signal set : std_logic;
+signal coordc, coordr: std_logic_vector (7 downto 0);
 
 begin
     MEMORIA: memoria_interna
         port map(i_clk => i_clk, i_reset => i_rst, i_set => set_memoria, i_addr => addr_memoria, i_mem => input_memoria,
         o_mem_soglia => soglia, o_mem_colonne => colonne, o_mem_ne => ne, o_mem_nw => nw, o_mem_se => se, o_mem_sw => sw);
         
-    --c1: compara_soglia port map (i_clk,value,i_data,res);
-        
+     ADDRESS: contatore16 port map(clk => i_clk,i_set =>set,i_reset => i_rst,o_out =>o_address);
+     
+     COORDINATES: coordinate port map(clk => i_clk, i_set => set , i_reset =>i_rst,i_c => colonne, i_r => righe, o_c => coordc, o_r => coordr);
+     
+     COMPARE: compara_soglia port map(clk => i_clk, i_soglia =>soglia,i_value => i_data);
+     
     inizializzazione: process(i_clk, i_rst) begin
     if(i_clk'event and i_clk='1' and i_rst='1') then
         set_memoria <= '0';
     end if;
     end process;
 
+    process(i_clk) begin
+    if(i_clk'event and i_clk = '1' and i_start ='1') then
+        
+
+    end if;
+    end process;
 end Behavioral;
 

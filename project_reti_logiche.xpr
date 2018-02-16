@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Product Version: Vivado v2017.3.1 (64-bit)              -->
+<!-- Product Version: Vivado v2017.3 (64-bit)              -->
 <!--                                                         -->
 <!-- Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="32" Path="C:/Users/Virtual Machine/project_reti_logiche/project_reti_logiche.xpr">
+<Project Version="7" Minor="32" Path="C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="2b78d9de02494219a1a0da34f301a535"/>
