@@ -267,22 +267,26 @@ end project_reti_logiche;
 
 architecture Behavioral of project_reti_logiche is
 
-signal ss,sc,sr,reset,res: std_logic;
-signal col,rig, value: std_logic_vector (7 downto 0);
+component memoria_interna is
+ Port(      i_clk : in std_logic;
+            i_reset : in std_logic;
+            i_set : in std_logic; 
+            i_addr: in std_logic_vector(2 downto 0);
+            i_mem : in std_logic_vector (7 downto 0); 
+            o_mem_soglia : out std_logic_vector (7 downto 0); 
+            o_mem_colonne : out std_logic_vector (7 downto 0);
+            o_mem_righe : out std_logic_vector (7 downto 0);
+            o_mem_ne : out std_logic_vector (7 downto 0); 
+            o_mem_nw : out std_logic_vector (7 downto 0);
+            o_mem_se : out std_logic_vector (7 downto 0);   
+            o_mem_sw : out std_logic_vector (7 downto 0));
+end component;
 
 component contatore is 
 Port(      clk : in std_logic;
             i_set: in std_logic;
             i_reset : in std_logic;
             o_out : out std_logic_vector (7 downto 0));
-end component;
-
-component registro is
- Port(      clk : in std_logic;
-            i_set : in std_logic;
-            i_reset : in std_logic;
-            i_mem : in std_logic_vector (7 downto 0);
-            o_mem : out std_logic_vector (7 downto 0));
 end component;
 
 component compara_soglia is
@@ -292,12 +296,27 @@ Port (     clk : in std_logic;
             o_result : out std_logic);
 end component;
 
+--Segnali per gestione memoria
+signal soglia, colonne, righe, ne, nw, se, sw, input_memoria: std_logic_vector(7 downto 0);
+signal set_memoria: std_logic;
+signal addr_memoria: std_logic_vector(2 downto 0);
+
+--Da rivedere
+signal ss,sc,sr,reset,res: std_logic;
+signal col,rig, value: std_logic_vector (7 downto 0);
+
 begin
-
-c1: compara_soglia port map (i_clk,value,i_data,res);
-
-
- 
+    MEMORIA: memoria_interna
+        port map(i_clk => i_clk, i_reset => i_rst, i_set => set_memoria, i_addr => addr_memoria, i_mem => input_memoria,
+        o_mem_soglia => soglia, o_mem_colonne => colonne, o_mem_ne => ne, o_mem_nw => nw, o_mem_se => se, o_mem_sw => sw);
+        
+    --c1: compara_soglia port map (i_clk,value,i_data,res);
+        
+    inizializzazione: process(i_clk, i_rst) begin
+    if(i_clk'event and i_clk='1' and i_rst='1') then
+        set_memoria <= '0';
+    end if;
+    end process;
 
 end Behavioral;
 
