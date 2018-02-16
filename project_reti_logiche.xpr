@@ -64,7 +64,7 @@
       </File>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
-        <Option Name="TopModule" Val="project_reti_logiche"/>
+        <Option Name="TopModule" Val="memoria_interna"/>
         <Option Name="TopAutoSet" Val="TRUE"/>
       </Config>
     </FileSet>
