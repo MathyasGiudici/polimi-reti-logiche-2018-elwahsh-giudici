@@ -2,10 +2,10 @@
 # Vivado v2017.3 (64-bit)
 # SW Build 2018833 on Wed Oct  4 19:58:22 MDT 2017
 # IP Build 2016188 on Wed Oct  4 21:52:56 MDT 2017
-# Start of session at: Fri Feb 16 16:06:13 2018
-# Process ID: 8184
+# Start of session at: Fri Feb 16 15:04:05 2018
+# Process ID: 6096
 # Current directory: C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent13776 C:\Users\aliel\Desktop\ProvaRL\project_reti_logiche\project_reti_logiche\project_reti_logiche.xpr
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent3400 C:\Users\aliel\Desktop\ProvaRL\project_reti_logiche\project_reti_logiche\project_reti_logiche.xpr
 # Log file: C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/vivado.log
 # Journal file: C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche\vivado.jou
 #-----------------------------------------------------------
@@ -17,6 +17,7 @@ Finished scanning sources
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1704] No user IP repositories specified
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2017.3/data/ip'.
+open_project: Time (s): cpu = 00:00:08 ; elapsed = 00:00:16 . Memory (MB): peak = 672.887 ; gain = 38.164
 update_compile_order -fileset sources_1
 exit
-INFO: [Common 17-206] Exiting Vivado at Fri Feb 16 16:12:22 2018...
+INFO: [Common 17-206] Exiting Vivado at Fri Feb 16 16:02:10 2018...

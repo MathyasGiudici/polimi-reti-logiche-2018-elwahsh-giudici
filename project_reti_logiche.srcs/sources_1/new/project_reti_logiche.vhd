@@ -132,9 +132,37 @@ entity project_reti_logiche is
 end project_reti_logiche;
 
 architecture Behavioral of project_reti_logiche is
+
+signal ss,sc,sr,reset,res: std_logic;
+signal col,rig, value: std_logic_vector (7 downto 0);
+
+component contatore is 
+Port(      clk : in std_logic;
+            i_set: in std_logic;
+            i_reset : in std_logic;
+            o_out : out std_logic_vector (7 downto 0));
+end component;
+
+component registro is
+ Port(      clk : in std_logic;
+            i_set : in std_logic;
+            i_reset : in std_logic;
+            i_mem : in std_logic_vector (7 downto 0);
+            o_mem : out std_logic_vector (7 downto 0));
+end component;
+
+component compara_soglia is
+Port (     clk : in std_logic;
+            i_soglia: in std_logic_vector (7 downto 0);
+            i_value: in std_logic_vector (7 downto 0);
+            o_result : out std_logic);
+end component;
+
 begin
-    
-    
+soglia: registro port map(i_clk,ss, reset,i_data,value);
+colonne: registro port map(i_clk,sc,reset,i_data,col);
+righe: registro port map(i_clk,sr,reset,i_data,rig);
+c1: compara_soglia port map (i_clk,value,i_data,res);
 
 end Behavioral;
 
