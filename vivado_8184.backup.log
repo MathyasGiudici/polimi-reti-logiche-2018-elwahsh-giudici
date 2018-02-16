@@ -2,13 +2,21 @@
 # Vivado v2017.3 (64-bit)
 # SW Build 2018833 on Wed Oct  4 19:58:22 MDT 2017
 # IP Build 2016188 on Wed Oct  4 21:52:56 MDT 2017
-# Start of session at: Fri Feb 16 16:18:50 2018
-# Process ID: 12388
+# Start of session at: Fri Feb 16 16:06:13 2018
+# Process ID: 8184
 # Current directory: C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent13424 C:\Users\aliel\Desktop\ProvaRL\project_reti_logiche\project_reti_logiche\project_reti_logiche.xpr
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent13776 C:\Users\aliel\Desktop\ProvaRL\project_reti_logiche\project_reti_logiche\project_reti_logiche.xpr
 # Log file: C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/vivado.log
 # Journal file: C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche\vivado.jou
 #-----------------------------------------------------------
 start_gui
 open_project C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.xpr
+INFO: [Project 1-313] Project file moved from 'C:/Users/Virtual Machine/project_reti_logiche' since last save.
+Scanning sources...
+Finished scanning sources
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2017.3/data/ip'.
 update_compile_order -fileset sources_1
+exit
+INFO: [Common 17-206] Exiting Vivado at Fri Feb 16 16:12:22 2018...

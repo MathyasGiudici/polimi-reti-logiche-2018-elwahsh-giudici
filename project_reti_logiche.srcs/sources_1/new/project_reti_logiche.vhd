@@ -26,11 +26,9 @@
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
---Componente compara soglia
 library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.std_logic_unsigned.all;
-
 
 --Componente Comparatore a 8 bit
 -- restituice 1 in uscita se il valore è uguale o maggiore alla soglia,
@@ -295,16 +293,11 @@ Port (     clk : in std_logic;
 end component;
 
 begin
-<<<<<<< HEAD
-soglia: registro port map(i_clk,ss, reset,i_data,value);
-colonne: registro port map(i_clk,sc,reset,i_data,col);
-righe: registro port map(i_clk,sr,reset,i_data,rig);
-c1: compara_soglia port map (i_clk,value,i_data,res);
-=======
 
-    
-    
->>>>>>> 0abfa81877627397f92e3a20d3155ca6cd16a5b6
+c1: compara_soglia port map (i_clk,value,i_data,res);
+
+
+ 
 
 end Behavioral;
 
