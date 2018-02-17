@@ -194,7 +194,7 @@ end Behavioral;
 -- Componente memoria.
 -- Se reset viene alzato a 1 si resetta la memoria
 -- Quando il set viene alzato ad un 1 in base ad indirizzo viene scritto in memoria l'ingresso
--- 0: soglia; 1: colonne; 2: righe; 3: ne; 4: nw; 5: se; 6: sw; 7: non accade nulla.
+-- 0: soglia; 1: colonne; 2: righe; 3: nord; 4: sud; 5: west; 6: est; 7: non accade nulla.
 library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.std_logic_unsigned.all;
@@ -207,10 +207,10 @@ entity memoria_interna is
             o_mem_soglia : out std_logic_vector (7 downto 0); 
             o_mem_colonne : out std_logic_vector (7 downto 0);
             o_mem_righe : out std_logic_vector (7 downto 0);
-            o_mem_ne : out std_logic_vector (7 downto 0); 
-            o_mem_nw : out std_logic_vector (7 downto 0);
-            o_mem_se : out std_logic_vector (7 downto 0);   
-            o_mem_sw : out std_logic_vector (7 downto 0));
+            o_mem_nord : out std_logic_vector (7 downto 0); 
+            o_mem_sud : out std_logic_vector (7 downto 0);
+            o_mem_west : out std_logic_vector (7 downto 0);   
+            o_mem_est : out std_logic_vector (7 downto 0));
 end memoria_interna;
 
 architecture Behavioral of memoria_interna is
@@ -222,7 +222,7 @@ component registro is
             o_mem : out std_logic_vector (7 downto 0));
 end component;
 
-signal s_reset, s_set_soglia, s_set_colonne, s_set_righe, s_set_ne , s_set_nw , s_set_se , s_set_sw: std_logic;
+signal s_reset, s_set_soglia, s_set_colonne, s_set_righe, s_set_n , s_set_s , s_set_w , s_set_e: std_logic;
 begin
     MEM_SOGLIA: registro
         port map(clk => i_clk, i_set => s_set_soglia, i_reset => s_reset, i_mem => i_mem, o_mem => o_mem_soglia);
@@ -231,13 +231,13 @@ begin
     MEM_RIGHE: registro
         port map(clk => i_clk, i_set => s_set_righe, i_reset => s_reset, i_mem => i_mem, o_mem => o_mem_righe);
     MEM_NE: registro
-        port map(clk => i_clk, i_set => s_set_ne, i_reset => s_reset, i_mem => i_mem, o_mem => o_mem_ne);
+        port map(clk => i_clk, i_set => s_set_n, i_reset => s_reset, i_mem => i_mem, o_mem => o_mem_nord);
     MEM_NW: registro
-        port map(clk => i_clk, i_set => s_set_nw, i_reset => s_reset, i_mem => i_mem, o_mem => o_mem_nw);
+        port map(clk => i_clk, i_set => s_set_s, i_reset => s_reset, i_mem => i_mem, o_mem => o_mem_sud);
     MEM_SE: registro
-        port map(clk => i_clk, i_set => s_set_se, i_reset => s_reset, i_mem => i_mem, o_mem => o_mem_se);
+        port map(clk => i_clk, i_set => s_set_w, i_reset => s_reset, i_mem => i_mem, o_mem => o_mem_west);
     MEM_SW: registro
-        port map(clk => i_clk, i_set => s_set_sw, i_reset => s_reset, i_mem => i_mem, o_mem => o_mem_sw);
+        port map(clk => i_clk, i_set => s_set_e, i_reset => s_reset, i_mem => i_mem, o_mem => o_mem_est);
         
      process(i_reset,i_clk) begin
      if(i_clk'event and i_clk='0') then
@@ -246,10 +246,10 @@ begin
             s_set_soglia <= '0';
             s_set_colonne <= '0';
             s_set_righe <= '0';
-            s_set_ne <= '0';
-            s_set_nw <= '0';
-            s_set_se <= '0';
-            s_set_sw <= '0';
+            s_set_n <= '0';
+            s_set_s <= '0';
+            s_set_w <= '0';
+            s_set_e <= '0';
         end if;
      end if;
      end process;
@@ -261,66 +261,66 @@ begin
         s_set_soglia <= '1';
         s_set_colonne <= '0';
         s_set_righe <= '0';
-        s_set_ne <= '0';
-        s_set_nw <= '0';
-        s_set_se <= '0';
-        s_set_sw <= '0';
+        s_set_n <= '0';
+        s_set_s <= '0';
+        s_set_w <= '0';
+        s_set_e <= '0';
         when "000" =>
         s_set_soglia <= '0';
         s_set_colonne <= '1';
         s_set_righe <= '0';
-        s_set_ne <= '0';
-        s_set_nw <= '0';
-        s_set_se <= '0';
-        s_set_sw <= '0';
+        s_set_n <= '0';
+        s_set_s <= '0';
+        s_set_w <= '0';
+        s_set_e <= '0';
         when "001" =>
         s_set_soglia <= '0';
         s_set_colonne <= '0';
         s_set_righe <= '1';
-        s_set_ne <= '0';
-        s_set_nw <= '0';
-        s_set_se <= '0';
-        s_set_sw <= '0';
+        s_set_n <= '0';
+        s_set_s <= '0';
+        s_set_w <= '0';
+        s_set_e <= '0';
         when "011" =>
         s_set_soglia <= '0';
         s_set_colonne <= '0';
         s_set_righe <= '0';
-        s_set_ne <= '1';
-        s_set_nw <= '0';
-        s_set_se <= '0';
-        s_set_sw <= '0';
+        s_set_n <= '1';
+        s_set_s <= '0';
+        s_set_w <= '0';
+        s_set_e <= '0';
         when "100" =>
         s_set_soglia <= '0';
         s_set_colonne <= '0';
         s_set_righe <= '0';
-        s_set_ne <= '0';
-        s_set_nw <= '1';
-        s_set_se <= '0';
-        s_set_sw <= '0';    
+        s_set_n <= '0';
+        s_set_s <= '1';
+        s_set_w <= '0';
+        s_set_e <= '0';    
         when "101" =>
         s_set_soglia <= '0';
         s_set_colonne <= '0';
         s_set_righe <= '0';
-        s_set_ne <= '0';
-        s_set_nw <= '0';
-        s_set_se <= '1';
-        s_set_sw <= '0';     
+        s_set_n <= '0';
+        s_set_s <= '0';
+        s_set_w <= '1';
+        s_set_e <= '0';     
         when "110" =>
         s_set_soglia <= '0';
         s_set_colonne <= '0';
         s_set_righe <= '0';
-        s_set_ne <= '0';
-        s_set_nw <= '0';
-        s_set_se <= '0';
-        s_set_sw <= '1';
+        s_set_n <= '0';
+        s_set_s <= '0';
+        s_set_w <= '0';
+        s_set_e <= '1';
         when "111" =>
         s_set_soglia <= '0';
         s_set_colonne <= '0';
         s_set_righe <= '0';
-        s_set_ne <= '0';
-        s_set_nw <= '0';
-        s_set_se <= '0';
-        s_set_sw <= '0';       
+        s_set_n <= '0';
+        s_set_s <= '0';
+        s_set_w <= '0';
+        s_set_e <= '0';       
         end case;     
     end if;   
     end process; 
@@ -353,10 +353,10 @@ component memoria_interna is
             o_mem_soglia : out std_logic_vector (7 downto 0); 
             o_mem_colonne : out std_logic_vector (7 downto 0);
             o_mem_righe : out std_logic_vector (7 downto 0);
-            o_mem_ne : out std_logic_vector (7 downto 0); 
-            o_mem_nw : out std_logic_vector (7 downto 0);
-            o_mem_se : out std_logic_vector (7 downto 0);   
-            o_mem_sw : out std_logic_vector (7 downto 0));
+            o_mem_nord : out std_logic_vector (7 downto 0); 
+            o_mem_sud : out std_logic_vector (7 downto 0);
+            o_mem_west : out std_logic_vector (7 downto 0);   
+            o_mem_est : out std_logic_vector (7 downto 0));
 end component;
 
 
@@ -389,7 +389,7 @@ end component;
 
 
 --Segnali per gestione memoria
-signal soglia, colonne, righe, ne, nw, se, sw, input_memoria: std_logic_vector(7 downto 0);
+signal soglia, colonne, righe, nord, sud, west, est, input_memoria: std_logic_vector(7 downto 0);
 signal set_memoria: std_logic; 
 signal addr_memoria: std_logic_vector(2 downto 0); -- gestire con un componente ad-hoc
 -- Segnali contatori
@@ -402,7 +402,7 @@ signal coordc, coordr: std_logic_vector (7 downto 0);
 begin
     MEMORIA: memoria_interna
         port map(i_clk => i_clk, i_reset => i_rst, i_set => set_memoria, i_addr => addr_memoria, i_mem => input_memoria,
-        o_mem_soglia => soglia, o_mem_colonne => colonne, o_mem_ne => ne, o_mem_nw => nw, o_mem_se => se, o_mem_sw => sw);
+        o_mem_soglia => soglia, o_mem_colonne => colonne, o_mem_nord => nord, o_mem_sud => sud, o_mem_west => west, o_mem_est => est);
         
      ADDRESS: contatore16 port map(clk => i_clk,i_set =>set,i_reset => i_rst,o_out =>o_address);
      
@@ -418,7 +418,7 @@ begin
    
     addr_memoria <= "000";
     
-    process(i_clk, i_start) begin
+    caricavalori: process(i_clk, i_start) begin
     if(i_clk'event and i_clk = '1' and i_start ='1') then
         o_en <= '1';
         o_we <= '0';
