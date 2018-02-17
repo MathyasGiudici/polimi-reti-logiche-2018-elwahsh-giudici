@@ -423,7 +423,9 @@ begin
         o_en <= '1';
         o_we <= '0';
         set_memoria <= '1';
+        set <= '1';
     elsif (i_clk'event and i_clk ='0' and i_start = '1') then
+        set <= '0';
         set_memoria <= '0';
         o_en <= '0';
         if (addr_memoria = "010" ) then
