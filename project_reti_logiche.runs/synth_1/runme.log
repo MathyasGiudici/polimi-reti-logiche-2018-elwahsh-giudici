@@ -1,0 +1,429 @@
+
+*** Running vivado
+    with args -log project_reti_logiche.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source project_reti_logiche.tcl
+
+
+****** Vivado v2017.3 (64-bit)
+  **** SW Build 2018833 on Wed Oct  4 19:58:22 MDT 2017
+  **** IP Build 2016188 on Wed Oct  4 21:52:56 MDT 2017
+    ** Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
+
+source project_reti_logiche.tcl -notrace
+Command: synth_design -top project_reti_logiche -part xc7a200tfbg484-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a200t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a200t'
+INFO: Launching helper process for spawning children vivado processes
+INFO: Helper process launched with PID 2116 
+---------------------------------------------------------------------------------
+Starting Synthesize : Time (s): cpu = 00:00:05 ; elapsed = 00:00:08 . Memory (MB): peak = 343.578 ; gain = 99.934
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'project_reti_logiche' [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:345]
+INFO: [Synth 8-3491] module 'memoria_interna' declared at 'C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:201' bound to instance 'MEMORIA' of component 'memoria_interna' [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:400]
+INFO: [Synth 8-638] synthesizing module 'memoria_interna' [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:216]
+INFO: [Synth 8-3491] module 'registro' declared at 'C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:63' bound to instance 'MEM_SOGLIA' of component 'registro' [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:227]
+INFO: [Synth 8-638] synthesizing module 'registro' [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:71]
+INFO: [Synth 8-256] done synthesizing module 'registro' (1#1) [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:71]
+INFO: [Synth 8-3491] module 'registro' declared at 'C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:63' bound to instance 'MEM_COLONNE' of component 'registro' [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:229]
+INFO: [Synth 8-3491] module 'registro' declared at 'C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:63' bound to instance 'MEM_RIGHE' of component 'registro' [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:231]
+INFO: [Synth 8-3491] module 'registro' declared at 'C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:63' bound to instance 'MEM_NE' of component 'registro' [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:233]
+INFO: [Synth 8-3491] module 'registro' declared at 'C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:63' bound to instance 'MEM_NW' of component 'registro' [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:235]
+INFO: [Synth 8-3491] module 'registro' declared at 'C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:63' bound to instance 'MEM_SE' of component 'registro' [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:237]
+INFO: [Synth 8-3491] module 'registro' declared at 'C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:63' bound to instance 'MEM_SW' of component 'registro' [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:239]
+INFO: [Synth 8-256] done synthesizing module 'memoria_interna' (2#1) [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:216]
+INFO: [Synth 8-3491] module 'contatore16' declared at 'C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:124' bound to instance 'ADDRESS' of component 'contatore16' [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:404]
+INFO: [Synth 8-638] synthesizing module 'contatore16' [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:133]
+INFO: [Synth 8-256] done synthesizing module 'contatore16' (3#1) [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:133]
+INFO: [Synth 8-3491] module 'coordinate' declared at 'C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:159' bound to instance 'COORDINATES' of component 'coordinate' [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:406]
+INFO: [Synth 8-638] synthesizing module 'coordinate' [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:171]
+INFO: [Synth 8-256] done synthesizing module 'coordinate' (4#1) [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:171]
+INFO: [Synth 8-3491] module 'compara_soglia' declared at 'C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:36' bound to instance 'COMPARE' of component 'compara_soglia' [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:408]
+INFO: [Synth 8-638] synthesizing module 'compara_soglia' [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:43]
+INFO: [Synth 8-256] done synthesizing module 'compara_soglia' (5#1) [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:43]
+WARNING: [Synth 8-614] signal 'i_start' is read in the process but is not in the sensitivity list [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:416]
+WARNING: [Synth 8-3848] Net o_done in module/entity project_reti_logiche does not have driver. [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:339]
+WARNING: [Synth 8-3848] Net o_en in module/entity project_reti_logiche does not have driver. [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:340]
+WARNING: [Synth 8-3848] Net o_we in module/entity project_reti_logiche does not have driver. [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:341]
+WARNING: [Synth 8-3848] Net o_data in module/entity project_reti_logiche does not have driver. [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:342]
+WARNING: [Synth 8-3848] Net set in module/entity project_reti_logiche does not have driver. [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:396]
+WARNING: [Synth 8-3848] Net righe in module/entity project_reti_logiche does not have driver. [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:392]
+WARNING: [Synth 8-3848] Net input_memoria in module/entity project_reti_logiche does not have driver. [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:392]
+WARNING: [Synth 8-3848] Net addr_memoria in module/entity project_reti_logiche does not have driver. [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:394]
+INFO: [Synth 8-256] done synthesizing module 'project_reti_logiche' (6#1) [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:345]
+WARNING: [Synth 8-3331] design coordinate has unconnected port i_r[7]
+WARNING: [Synth 8-3331] design coordinate has unconnected port i_r[6]
+WARNING: [Synth 8-3331] design coordinate has unconnected port i_r[5]
+WARNING: [Synth 8-3331] design coordinate has unconnected port i_r[4]
+WARNING: [Synth 8-3331] design coordinate has unconnected port i_r[3]
+WARNING: [Synth 8-3331] design coordinate has unconnected port i_r[2]
+WARNING: [Synth 8-3331] design coordinate has unconnected port i_r[1]
+WARNING: [Synth 8-3331] design coordinate has unconnected port i_r[0]
+WARNING: [Synth 8-3331] design project_reti_logiche has unconnected port o_done
+WARNING: [Synth 8-3331] design project_reti_logiche has unconnected port o_en
+WARNING: [Synth 8-3331] design project_reti_logiche has unconnected port o_we
+WARNING: [Synth 8-3331] design project_reti_logiche has unconnected port o_data[7]
+WARNING: [Synth 8-3331] design project_reti_logiche has unconnected port o_data[6]
+WARNING: [Synth 8-3331] design project_reti_logiche has unconnected port o_data[5]
+WARNING: [Synth 8-3331] design project_reti_logiche has unconnected port o_data[4]
+WARNING: [Synth 8-3331] design project_reti_logiche has unconnected port o_data[3]
+WARNING: [Synth 8-3331] design project_reti_logiche has unconnected port o_data[2]
+WARNING: [Synth 8-3331] design project_reti_logiche has unconnected port o_data[1]
+WARNING: [Synth 8-3331] design project_reti_logiche has unconnected port o_data[0]
+WARNING: [Synth 8-3331] design project_reti_logiche has unconnected port i_start
+---------------------------------------------------------------------------------
+Finished Synthesize : Time (s): cpu = 00:00:06 ; elapsed = 00:00:09 . Memory (MB): peak = 396.160 ; gain = 152.516
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:07 ; elapsed = 00:00:10 . Memory (MB): peak = 396.160 ; gain = 152.516
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a200tfbg484-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:07 ; elapsed = 00:00:10 . Memory (MB): peak = 396.160 ; gain = 152.516
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-6014] Unused sequential element appoggio_reg was removed.  [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:139]
+INFO: [Device 21-403] Loading part xc7a200tfbg484-1
+WARNING: [Synth 8-6014] Unused sequential element col_reg was removed.  [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:177]
+WARNING: [Synth 8-6014] Unused sequential element rig_reg was removed.  [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:178]
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:07 ; elapsed = 00:00:10 . Memory (MB): peak = 396.160 ; gain = 152.516
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+No constraint files found.
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input      8 Bit       Adders := 2     
++---Registers : 
+	                8 Bit    Registers := 2     
+	                1 Bit    Registers := 2     
++---Muxes : 
+	   2 Input      8 Bit        Muxes := 1     
+	   8 Input      1 Bit        Muxes := 7     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Hierarchical Component Statistics 
+---------------------------------------------------------------------------------
+Hierarchical RTL Component report 
+Module project_reti_logiche 
+Detailed RTL Component Info : 
++---Registers : 
+	                1 Bit    Registers := 1     
+Module memoria_interna 
+Detailed RTL Component Info : 
++---Muxes : 
+	   8 Input      1 Bit        Muxes := 7     
+Module coordinate 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input      8 Bit       Adders := 2     
++---Registers : 
+	                8 Bit    Registers := 2     
++---Muxes : 
+	   2 Input      8 Bit        Muxes := 1     
+Module compara_soglia 
+Detailed RTL Component Info : 
++---Registers : 
+	                1 Bit    Registers := 1     
+---------------------------------------------------------------------------------
+Finished RTL Hierarchical Component Statistics
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 740 (col length:100)
+BRAMs: 730 (col length: RAMB18 100 RAMB36 50)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-6014] Unused sequential element COMPARE/o_result_reg was removed.  [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:49]
+WARNING: [Synth 8-6014] Unused sequential element COORDINATES/rig_reg was removed.  [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:178]
+WARNING: [Synth 8-6014] Unused sequential element ADDRESS/appoggio_reg was removed.  [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:139]
+WARNING: [Synth 8-6014] Unused sequential element COORDINATES/col_reg was removed.  [C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:177]
+WARNING: [Synth 8-3331] design project_reti_logiche has unconnected port o_done
+WARNING: [Synth 8-3331] design project_reti_logiche has unconnected port o_en
+WARNING: [Synth 8-3331] design project_reti_logiche has unconnected port o_we
+WARNING: [Synth 8-3331] design project_reti_logiche has unconnected port o_data[7]
+WARNING: [Synth 8-3331] design project_reti_logiche has unconnected port o_data[6]
+WARNING: [Synth 8-3331] design project_reti_logiche has unconnected port o_data[5]
+WARNING: [Synth 8-3331] design project_reti_logiche has unconnected port o_data[4]
+WARNING: [Synth 8-3331] design project_reti_logiche has unconnected port o_data[3]
+WARNING: [Synth 8-3331] design project_reti_logiche has unconnected port o_data[2]
+WARNING: [Synth 8-3331] design project_reti_logiche has unconnected port o_data[1]
+WARNING: [Synth 8-3331] design project_reti_logiche has unconnected port o_data[0]
+WARNING: [Synth 8-3331] design project_reti_logiche has unconnected port i_start
+WARNING: [Synth 8-3331] design project_reti_logiche has unconnected port i_data[7]
+WARNING: [Synth 8-3331] design project_reti_logiche has unconnected port i_data[6]
+WARNING: [Synth 8-3331] design project_reti_logiche has unconnected port i_data[5]
+WARNING: [Synth 8-3331] design project_reti_logiche has unconnected port i_data[4]
+WARNING: [Synth 8-3331] design project_reti_logiche has unconnected port i_data[3]
+WARNING: [Synth 8-3331] design project_reti_logiche has unconnected port i_data[2]
+WARNING: [Synth 8-3331] design project_reti_logiche has unconnected port i_data[1]
+WARNING: [Synth 8-3331] design project_reti_logiche has unconnected port i_data[0]
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_0/\ADDRESS/appoggio_reg[0] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_0/\ADDRESS/appoggio_reg[1] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_0/\ADDRESS/appoggio_reg[2] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_0/\ADDRESS/appoggio_reg[3] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_0/\ADDRESS/appoggio_reg[4] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_0/\ADDRESS/appoggio_reg[5] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_0/\ADDRESS/appoggio_reg[6] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_0/\ADDRESS/appoggio_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_0/\ADDRESS/appoggio_reg[8] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_0/\ADDRESS/appoggio_reg[9] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_0/\ADDRESS/appoggio_reg[10] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_0/\ADDRESS/appoggio_reg[11] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_0/\ADDRESS/appoggio_reg[12] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_0/\ADDRESS/appoggio_reg[13] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_0/\ADDRESS/appoggio_reg[14] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_0/\ADDRESS/appoggio_reg[15] )
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_SOGLIA/o_mem_reg[7]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_SOGLIA/o_mem_reg[6]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_SOGLIA/o_mem_reg[5]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_SOGLIA/o_mem_reg[4]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_SOGLIA/o_mem_reg[3]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_SOGLIA/o_mem_reg[2]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_SOGLIA/o_mem_reg[1]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_SOGLIA/o_mem_reg[0]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_COLONNE/o_mem_reg[7]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_COLONNE/o_mem_reg[6]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_COLONNE/o_mem_reg[5]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_COLONNE/o_mem_reg[4]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_COLONNE/o_mem_reg[3]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_COLONNE/o_mem_reg[2]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_COLONNE/o_mem_reg[1]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_COLONNE/o_mem_reg[0]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_RIGHE/o_mem_reg[7]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_RIGHE/o_mem_reg[6]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_RIGHE/o_mem_reg[5]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_RIGHE/o_mem_reg[4]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_RIGHE/o_mem_reg[3]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_RIGHE/o_mem_reg[2]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_RIGHE/o_mem_reg[1]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_RIGHE/o_mem_reg[0]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_NE/o_mem_reg[7]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_NE/o_mem_reg[6]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_NE/o_mem_reg[5]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_NE/o_mem_reg[4]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_NE/o_mem_reg[3]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_NE/o_mem_reg[2]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_NE/o_mem_reg[1]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_NE/o_mem_reg[0]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_NW/o_mem_reg[7]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_NW/o_mem_reg[6]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_NW/o_mem_reg[5]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_NW/o_mem_reg[4]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_NW/o_mem_reg[3]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_NW/o_mem_reg[2]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_NW/o_mem_reg[1]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_NW/o_mem_reg[0]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_SE/o_mem_reg[7]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_SE/o_mem_reg[6]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_SE/o_mem_reg[5]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_SE/o_mem_reg[4]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_SE/o_mem_reg[3]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_SE/o_mem_reg[2]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_SE/o_mem_reg[1]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_SE/o_mem_reg[0]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_SW/o_mem_reg[7]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_SW/o_mem_reg[6]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_SW/o_mem_reg[5]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_SW/o_mem_reg[4]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_SW/o_mem_reg[3]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_SW/o_mem_reg[2]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_SW/o_mem_reg[1]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/MEM_SW/o_mem_reg[0]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/s_set_soglia_reg) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/s_set_soglia_reg__0) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/s_reset_reg) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/s_set_colonne_reg) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/s_set_colonne_reg__0) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/s_set_righe_reg) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/s_set_righe_reg__0) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/s_set_ne_reg) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/s_set_ne_reg__0) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/s_set_nw_reg) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/s_set_nw_reg__0) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/s_set_se_reg) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/s_set_se_reg__0) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/s_set_sw_reg) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (MEMORIA/s_set_sw_reg__0) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (COORDINATES/col_reg[7]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (COORDINATES/col_reg[6]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (COORDINATES/col_reg[5]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (COORDINATES/col_reg[4]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (COORDINATES/col_reg[3]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (COORDINATES/col_reg[2]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (COORDINATES/col_reg[1]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (COORDINATES/col_reg[0]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (set_memoria_reg) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (ADDRESS/appoggio_reg[0]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (ADDRESS/appoggio_reg[1]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (ADDRESS/appoggio_reg[2]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (ADDRESS/appoggio_reg[3]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (ADDRESS/appoggio_reg[4]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (ADDRESS/appoggio_reg[5]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (ADDRESS/appoggio_reg[6]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (ADDRESS/appoggio_reg[7]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (ADDRESS/appoggio_reg[8]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (ADDRESS/appoggio_reg[9]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (ADDRESS/appoggio_reg[10]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (ADDRESS/appoggio_reg[11]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (ADDRESS/appoggio_reg[12]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (ADDRESS/appoggio_reg[13]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (ADDRESS/appoggio_reg[14]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (ADDRESS/appoggio_reg[15]) is unused and will be removed from module project_reti_logiche.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:10 ; elapsed = 00:00:17 . Memory (MB): peak = 563.703 ; gain = 320.059
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:10 ; elapsed = 00:00:17 . Memory (MB): peak = 563.703 ; gain = 320.059
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:10 ; elapsed = 00:00:17 . Memory (MB): peak = 572.375 ; gain = 328.730
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:12 ; elapsed = 00:00:18 . Memory (MB): peak = 572.375 ; gain = 328.730
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:12 ; elapsed = 00:00:18 . Memory (MB): peak = 572.375 ; gain = 328.730
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:12 ; elapsed = 00:00:18 . Memory (MB): peak = 572.375 ; gain = 328.730
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:12 ; elapsed = 00:00:18 . Memory (MB): peak = 572.375 ; gain = 328.730
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:12 ; elapsed = 00:00:18 . Memory (MB): peak = 572.375 ; gain = 328.730
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:12 ; elapsed = 00:00:18 . Memory (MB): peak = 572.375 ; gain = 328.730
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+------+------+
+|      |Cell  |Count |
++------+------+------+
+|1     |OBUF  |    16|
+|2     |OBUFT |    11|
++------+------+------+
+
+Report Instance Areas: 
++------+---------+-------+------+
+|      |Instance |Module |Cells |
++------+---------+-------+------+
+|1     |top      |       |    27|
++------+---------+-------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:12 ; elapsed = 00:00:18 . Memory (MB): peak = 572.375 ; gain = 328.730
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 152 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:12 ; elapsed = 00:00:18 . Memory (MB): peak = 572.375 ; gain = 328.730
+Synthesis Optimization Complete : Time (s): cpu = 00:00:12 ; elapsed = 00:00:18 . Memory (MB): peak = 572.375 ; gain = 328.730
+INFO: [Project 1-571] Translating synthesized netlist
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+INFO: [Common 17-83] Releasing license: Synthesis
+46 Infos, 152 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:17 ; elapsed = 00:00:29 . Memory (MB): peak = 682.348 ; gain = 451.199
+INFO: [Common 17-1381] The checkpoint 'C:/Users/aliel/Desktop/ProvaRL/project_reti_logiche/project_reti_logiche/project_reti_logiche.runs/synth_1/project_reti_logiche.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file project_reti_logiche_utilization_synth.rpt -pb project_reti_logiche_utilization_synth.pb
+report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.226 . Memory (MB): peak = 682.348 ; gain = 0.000
+INFO: [Common 17-206] Exiting Vivado at Sat Feb 17 10:31:52 2018...

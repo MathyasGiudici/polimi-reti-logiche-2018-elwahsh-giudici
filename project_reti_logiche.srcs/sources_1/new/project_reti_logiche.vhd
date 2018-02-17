@@ -257,7 +257,7 @@ begin
     process(i_set,i_addr,i_clk) begin
     if(i_clk'event and i_clk='0' and i_set='1') then
         case i_addr is
-        when "000" =>
+        when "010" =>
         s_set_soglia <= '1';
         s_set_colonne <= '0';
         s_set_righe <= '0';
@@ -265,7 +265,7 @@ begin
         s_set_nw <= '0';
         s_set_se <= '0';
         s_set_sw <= '0';
-        when "001" =>
+        when "000" =>
         s_set_soglia <= '0';
         s_set_colonne <= '1';
         s_set_righe <= '0';
@@ -273,7 +273,7 @@ begin
         s_set_nw <= '0';
         s_set_se <= '0';
         s_set_sw <= '0';
-        when "010" =>
+        when "001" =>
         s_set_soglia <= '0';
         s_set_colonne <= '0';
         s_set_righe <= '1';
@@ -390,11 +390,14 @@ end component;
 
 --Segnali per gestione memoria
 signal soglia, colonne, righe, ne, nw, se, sw, input_memoria: std_logic_vector(7 downto 0);
-signal set_memoria: std_logic;
-signal addr_memoria: std_logic_vector(2 downto 0);
+signal set_memoria: std_logic; 
+signal addr_memoria: std_logic_vector(2 downto 0); -- gestire con un componente ad-hoc
 -- Segnali contatori
 signal set : std_logic;
 signal coordc, coordr: std_logic_vector (7 downto 0);
+
+-- segnali di supporto da rimuovere per la sintesi
+
 
 begin
     MEMORIA: memoria_interna
@@ -412,11 +415,21 @@ begin
         set_memoria <= '0';
     end if;
     end process;
-
-    process(i_clk) begin
+   
+    addr_memoria <= "000";
+    
+    process(i_clk, i_start) begin
     if(i_clk'event and i_clk = '1' and i_start ='1') then
-        
-
+        o_en <= '1';
+        o_we <= '0';
+        set_memoria <= '1';
+    elsif (i_clk'event and i_clk ='0' and i_start = '1') then
+        set_memoria <= '0';
+        o_en <= '0';
+        if (addr_memoria = "010" ) then
+            addr_memoria <= "111";
+         else addr_memoria <= addr_memoria + "001";
+            end if;
     end if;
     end process;
 end Behavioral;
