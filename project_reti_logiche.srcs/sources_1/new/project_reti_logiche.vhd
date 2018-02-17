@@ -164,7 +164,8 @@ Port(
         i_c: in std_logic_vector (7 downto 0);
         i_r: in std_logic_vector (7 downto 0);
         o_c: out std_logic_vector (7 downto 0);
-        o_r: out std_logic_vector (7 downto 0)
+        o_r: out std_logic_vector (7 downto 0);
+        o_end: out std_logic
 );
 end coordinate;
 
@@ -176,12 +177,17 @@ begin
         if(i_reset = '1') then
             col <= "00000000";
             rig <= "00000000";
+            o_end <= '0';
         elsif(clk'event and clk='1' and i_set='1') then
             if(col = i_c)then
                 col <= "00000000";
                 rig <= rig + "00000001";
             else
                 col <= col + "00000001";
+            end if;
+            if(rig = i_r) then
+                o_end <= '1';
+            else o_end <= '0';
             end if;
         end if;
     end process;
@@ -383,7 +389,8 @@ Port(
         i_c: in std_logic_vector (7 downto 0);
         i_r: in std_logic_vector (7 downto 0);
         o_c: out std_logic_vector (7 downto 0);
-        o_r: out std_logic_vector (7 downto 0)
+        o_r: out std_logic_vector (7 downto 0);
+        o_end: out std_logic
 );
 end component;
 
@@ -393,10 +400,10 @@ signal soglia, colonne, righe, nord, sud, west, est, input_memoria: std_logic_ve
 signal set_memoria: std_logic; 
 signal addr_memoria: std_logic_vector(2 downto 0); -- gestire con un componente ad-hoc
 -- Segnali contatori
-signal set : std_logic;
+signal set1, set2, fine, check : std_logic;
 signal coordc, coordr: std_logic_vector (7 downto 0);
-
 -- segnali di supporto da rimuovere per la sintesi
+signal phase: std_logic; -- tiene traccia tra caricamento valori e fase di confronto
 
 
 begin
@@ -404,34 +411,48 @@ begin
         port map(i_clk => i_clk, i_reset => i_rst, i_set => set_memoria, i_addr => addr_memoria, i_mem => input_memoria,
         o_mem_soglia => soglia, o_mem_colonne => colonne, o_mem_nord => nord, o_mem_sud => sud, o_mem_west => west, o_mem_est => est);
         
-     ADDRESS: contatore16 port map(clk => i_clk,i_set =>set,i_reset => i_rst,o_out =>o_address);
+     ADDRESS: contatore16 port map(clk => i_clk,i_set =>set1,i_reset => i_rst,o_out =>o_address);
      
-     COORDINATES: coordinate port map(clk => i_clk, i_set => set , i_reset =>i_rst,i_c => colonne, i_r => righe, o_c => coordc, o_r => coordr);
+     COORDINATES: coordinate port map(clk => i_clk, i_set => set2 , i_reset =>i_rst,i_c => colonne, i_r => righe, o_c => coordc, o_r => coordr, o_end => fine);
      
-     COMPARE: compara_soglia port map(clk => i_clk, i_soglia =>soglia,i_value => i_data);
+     COMPARE: compara_soglia port map(clk => i_clk, i_soglia =>soglia,i_value => i_data, o_result => check);
      
     inizializzazione: process(i_clk, i_rst) begin
     if(i_clk'event and i_clk='1' and i_rst='1') then
         set_memoria <= '0';
+        phase <= '1';
+        set1 <= '0';
+        set2 <= '0';
     end if;
     end process;
    
     addr_memoria <= "000";
     
     caricavalori: process(i_clk, i_start) begin
-    if(i_clk'event and i_clk = '1' and i_start ='1') then
+    if(i_clk'event and i_clk = '1' and i_start ='1' and phase = '1') then
         o_en <= '1';
         o_we <= '0';
         set_memoria <= '1';
-        set <= '1';
-    elsif (i_clk'event and i_clk ='0' and i_start = '1') then
-        set <= '0';
+        set1 <= '1';
+    elsif (i_clk'event and i_clk ='0' and i_start = '1' and phase = '1') then
+        set1 <= '0';
         set_memoria <= '0';
         o_en <= '0';
         if (addr_memoria = "010" ) then
             addr_memoria <= "111";
+            phase <= '0';
          else addr_memoria <= addr_memoria + "001";
             end if;
+    end if;
+    end process;
+    
+    confrontavalori: process(i_clk, phase) begin
+    if(i_clk'event and i_clk = '1' and i_start = '1' and phase = '0' and fine = '0' ) then
+        set1 <= '1';
+        set2 <=  '1';
+        if(check = '1') then
+        -- se il confronto è positivo iniziamo a controllare se si deve aggiornare la memoria
+        end if;
     end if;
     end process;
 end Behavioral;
