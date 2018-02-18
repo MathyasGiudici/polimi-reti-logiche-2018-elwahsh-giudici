@@ -129,7 +129,6 @@ entity contatore16 is
 );
 end contatore16;
 
-
 architecture Behavioral of contatore16 is
 signal appoggio : std_logic_vector (15 downto 0);
 begin
@@ -326,7 +325,15 @@ begin
         s_set_n <= '0';
         s_set_s <= '0';
         s_set_w <= '0';
-        s_set_e <= '0';       
+        s_set_e <= '0';     
+        when others =>
+        s_set_soglia <= '0';
+        s_set_colonne <= '0';
+        s_set_righe <= '0';
+        s_set_n <= '0';
+        s_set_s <= '0';
+        s_set_w <= '0';
+        s_set_e <= '0';   
         end case;     
     end if;   
     end process; 
@@ -400,20 +407,20 @@ signal soglia, colonne, righe, nord, sud, west, est, input_memoria: std_logic_ve
 signal set_memoria: std_logic; 
 signal addr_memoria: std_logic_vector(2 downto 0); -- gestire con un componente ad-hoc
 -- Segnali contatori
-signal set1, set2, fine, check : std_logic;
+signal set_addr, set_coor, fine, check : std_logic;
 signal coordc, coordr: std_logic_vector (7 downto 0);
 -- segnali di supporto da rimuovere per la sintesi
 signal phase: std_logic; -- tiene traccia tra caricamento valori e fase di confronto
-
+signal moltiplica: std_logic_vector(15 downto 0);
 
 begin
     MEMORIA: memoria_interna
         port map(i_clk => i_clk, i_reset => i_rst, i_set => set_memoria, i_addr => addr_memoria, i_mem => input_memoria,
         o_mem_soglia => soglia, o_mem_colonne => colonne, o_mem_nord => nord, o_mem_sud => sud, o_mem_west => west, o_mem_est => est);
         
-     ADDRESS: contatore16 port map(clk => i_clk,i_set =>set1,i_reset => i_rst,o_out =>o_address);
+     ADDRESS: contatore16 port map(clk => i_clk,i_set =>set_addr,i_reset => i_rst,o_out =>o_address);
      
-     COORDINATES: coordinate port map(clk => i_clk, i_set => set2 , i_reset =>i_rst,i_c => colonne, i_r => righe, o_c => coordc, o_r => coordr, o_end => fine);
+     COORDINATES: coordinate port map(clk => i_clk, i_set => set_coor , i_reset =>i_rst,i_c => colonne, i_r => righe, o_c => coordc, o_r => coordr, o_end => fine);
      
      COMPARE: compara_soglia port map(clk => i_clk, i_soglia =>soglia,i_value => i_data, o_result => check);
      
@@ -421,8 +428,8 @@ begin
     if(i_clk'event and i_clk='1' and i_rst='1') then
         set_memoria <= '0';
         phase <= '1';
-        set1 <= '0';
-        set2 <= '0';
+        set_addr <= '0';
+        set_coor <= '0';
     end if;
     end process;
    
@@ -433,26 +440,81 @@ begin
         o_en <= '1';
         o_we <= '0';
         set_memoria <= '1';
-        set1 <= '1';
+        set_addr <= '1';
+        input_memoria <= i_data;
     elsif (i_clk'event and i_clk ='0' and i_start = '1' and phase = '1') then
-        set1 <= '0';
+        set_addr <= '0';
         set_memoria <= '0';
         o_en <= '0';
         if (addr_memoria = "010" ) then
             addr_memoria <= "111";
             phase <= '0';
          else addr_memoria <= addr_memoria + "001";
-            end if;
+         end if;
     end if;
     end process;
     
-    confrontavalori: process(i_clk, phase) begin
+    confrontavalori: process begin
     if(i_clk'event and i_clk = '1' and i_start = '1' and phase = '0' and fine = '0' ) then
-        set1 <= '1';
-        set2 <=  '1';
+        set_addr <= '1';
+        set_coor <=  '1';
         if(check = '1') then
         -- se il confronto è positivo iniziamo a controllare se si deve aggiornare la memoria
+            if (nord = "XXXXXXXX") then
+                set_memoria <= '1';    
+                addr_memoria <= "011";
+                input_memoria <= coordr;
+                wait until i_clk'event and i_clk='0';
+                set_memoria <= '1';    
+                addr_memoria <= "100";
+                input_memoria <= coordr;
+                wait until i_clk'event and i_clk='0';
+                set_memoria <= '1';    
+                addr_memoria <= "101";
+                input_memoria <= coordc;
+                wait until i_clk'event and i_clk='0';
+                set_memoria <= '1';    
+                addr_memoria <= "110";
+                input_memoria <= coordc;
+                wait until i_clk'event and i_clk='0';
+                set_memoria <= '0'; 
+            else
+                if(coordr < nord) then
+                set_memoria <= '1';    
+                addr_memoria <= "011";
+                input_memoria <= coordr; 
+                wait until i_clk'event and i_clk='0';
+                set_memoria <= '0'; 
+                elsif(coordr > sud) then
+                set_memoria <= '1';    
+                addr_memoria <= "100";
+                input_memoria <= coordr;
+                wait until i_clk'event and i_clk='0';
+                set_memoria <= '0'; 
+                elsif (coordc < west) then
+                set_memoria <= '1';    
+                addr_memoria <= "101";
+                input_memoria <= coordr;
+                wait until i_clk'event and i_clk='0';
+                set_memoria <= '0';
+                elsif (coordc > est) then
+                set_memoria <= '1';    
+                addr_memoria <= "110";
+                input_memoria <= coordr;
+                wait until i_clk'event and i_clk='0';
+                set_memoria <= '0';                               
+                end if;           
+            end if;
         end if;
+    end if;
+    end process;
+    
+    moltiplicazione: process(fine) begin
+    if (fine='1') then
+    moltiplica <= ( sud - nord + "00000001") * (est - west + "00000001");
+    o_en <= '1';
+    o_we <= '1';
+    -- i_data <= moltiplica(15 downto 8);
     end if;
     end process;
 end Behavioral;

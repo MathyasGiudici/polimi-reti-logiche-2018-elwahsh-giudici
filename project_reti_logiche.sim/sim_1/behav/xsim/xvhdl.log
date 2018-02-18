@@ -1,0 +1,10 @@
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Virtual Machine/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity compara_soglia
+INFO: [VRFC 10-307] analyzing entity registro
+INFO: [VRFC 10-307] analyzing entity contatore
+INFO: [VRFC 10-307] analyzing entity contatore16
+INFO: [VRFC 10-307] analyzing entity coordinate
+INFO: [VRFC 10-307] analyzing entity memoria_interna
+INFO: [VRFC 10-307] analyzing entity project_reti_logiche
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Virtual Machine/project_reti_logiche/project_reti_logiche.srcs/sim_1/imports/testbench progetto/FSM_testbench1.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity project_tb
