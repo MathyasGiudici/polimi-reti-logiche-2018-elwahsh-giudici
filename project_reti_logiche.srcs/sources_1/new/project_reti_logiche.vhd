@@ -412,17 +412,22 @@ signal coordc, coordr: std_logic_vector (7 downto 0);
 -- segnali di supporto da rimuovere per la sintesi
 signal phase: std_logic; -- tiene traccia tra caricamento valori e fase di confronto
 signal moltiplica: std_logic_vector(15 downto 0);
+signal rst, arst: std_logic;
+signal productphase: std_logic_vector (1 downto 0);
 
 begin
+    arst <= i_rst or rst;
     MEMORIA: memoria_interna
         port map(i_clk => i_clk, i_reset => i_rst, i_set => set_memoria, i_addr => addr_memoria, i_mem => input_memoria,
         o_mem_soglia => soglia, o_mem_colonne => colonne, o_mem_nord => nord, o_mem_sud => sud, o_mem_west => west, o_mem_est => est);
         
-     ADDRESS: contatore16 port map(clk => i_clk,i_set =>set_addr,i_reset => i_rst,o_out =>o_address);
+     ADDRESS: contatore16 port map(clk => i_clk,i_set =>set_addr,i_reset => arst,o_out =>o_address);
      
      COORDINATES: coordinate port map(clk => i_clk, i_set => set_coor , i_reset =>i_rst,i_c => colonne, i_r => righe, o_c => coordc, o_r => coordr, o_end => fine);
      
      COMPARE: compara_soglia port map(clk => i_clk, i_soglia =>soglia,i_value => i_data, o_result => check);
+     
+     
      
     inizializzazione: process(i_clk, i_rst) begin
     if(i_clk'event and i_clk='1' and i_rst='1') then
@@ -436,13 +441,13 @@ begin
     addr_memoria <= "000";
     
     caricavalori: process(i_clk, i_start) begin
-    if(i_clk'event and i_clk = '1' and i_start ='1' and phase = '1') then
+    if(i_clk'event and i_clk = '1' and phase = '1') then
         o_en <= '1';
         o_we <= '0';
         set_memoria <= '1';
         set_addr <= '1';
         input_memoria <= i_data;
-    elsif (i_clk'event and i_clk ='0' and i_start = '1' and phase = '1') then
+    elsif (i_clk'event and i_clk ='0' and phase = '1') then
         set_addr <= '0';
         set_memoria <= '0';
         o_en <= '0';
@@ -455,7 +460,7 @@ begin
     end process;
     
     confrontavalori: process begin
-    if(i_clk'event and i_clk = '1' and i_start = '1' and phase = '0' and fine = '0' ) then
+    if(i_clk'event and i_clk = '1' and phase = '0' and fine = '0' ) then
         set_addr <= '1';
         set_coor <=  '1';
         if(check = '1') then
@@ -512,10 +517,28 @@ begin
     moltiplicazione: process(fine) begin
     if (fine='1') then
     moltiplica <= ( sud - nord + "00000001") * (est - west + "00000001");
-    o_en <= '1';
-    o_we <= '1';
-    -- i_data <= moltiplica(15 downto 8);
+    productphase <= "01";
     end if;
     end process;
+    
+    salvataggio: process(i_clk,moltiplica) begin
+        if(i_clk'event and i_clk= '1' and fine ='1' and productphase = "01") then
+        rst <= '1';
+        o_en <= '1';
+        o_we <= '1';
+        o_data <= moltiplica (15 downto 8);
+        productphase <= "11";
+        elsif(i_clk'event and i_clk = '0'and fine ='1') then
+        rst <= '0';
+        elsif(i_clk'event and i_clk = '1' and fine = '1' and productphase = "11") then
+        set_addr <= '1';
+        o_data <= moltiplica (7 downto 0);
+        o_done <= '1';
+        productphase <= "00";
+        elsif(i_clk'event and i_clk = '0' and fine = '1' and productphase = "00") then
+        o_done <= '0';
+        end if;
+    end process;
+    
 end Behavioral;
 
