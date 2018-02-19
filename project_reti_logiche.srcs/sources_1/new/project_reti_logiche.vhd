@@ -44,7 +44,7 @@ architecture Behavioral of compara_soglia is
 begin
 process(clk)
     begin   
-        if(clk'event and clk='1') then
+        if(clk'event and clk='0') then
             if (i_soglia > i_value ) then  
                 o_result <= '0';
         elsif (i_soglia <= i_value ) then   
@@ -83,44 +83,12 @@ begin
     end process;
 end Behavioral;
 
---Componente Contatore ad 8 bit
+--Componente Contatore ad 16 bit
 -- i_set='1' permette di far incremenatre il contatore;
 -- in caso di overflow o i_reset contatore resettato a 0.
 library IEEE;
 use IEEE.std_logic_1164.all;
 use ieee.std_logic_unsigned.all;
-entity contatore is
- Port(      clk : in std_logic;
-            i_set: in std_logic;
-            i_reset : in std_logic;
-            o_out : out std_logic_vector (7 downto 0));
-end contatore;
-
-architecture Behavioral of contatore is
-signal appoggio : std_logic_vector (7 downto 0);
-begin
-    process(clk,i_reset,i_set)
-    begin
-        if(i_reset = '1') then
-            appoggio <= "00000000";
-        elsif(clk'event and clk='1' and i_set='1') then
-            if(appoggio = "11111111")then
-                appoggio <= "00000000";
-               
-            else
-                appoggio <= appoggio + "00000001";
-            end if;
-        end if;
-    end process;
-    o_out <= appoggio;
-end Behavioral;
-
---Contatore a 16 bit 
--- funzionamento analogo alla sua controparte ad 8 bit
-library IEEE;
-use IEEE.std_logic_1164.all;
-use ieee.std_logic_unsigned.all;
-
 entity contatore16 is
  Port(   clk: in  std_logic;
             i_set: in std_logic;
@@ -136,7 +104,7 @@ begin
     begin
         if(i_reset = '1') then
             appoggio <= "0000000000000000";
-        elsif(clk'event and clk='1' and i_set='1') then
+        elsif(clk'event and clk='0' and i_set='1') then
             if(appoggio = "1111111111111111")then
                 appoggio <= "0000000000000000";
                
@@ -177,7 +145,7 @@ begin
             col <= "00000000";
             rig <= "00000000";
             o_end <= '0';
-        elsif(clk'event and clk='1' and i_set='1') then
+        elsif(clk'event and clk='0' and i_set='1') then
             if(col = i_c)then
                 col <= "00000000";
                 rig <= rig + "00000001";
@@ -194,7 +162,6 @@ begin
    o_r <= rig;
 
 end Behavioral;
-
 
 -- Componente memoria.
 -- Se reset viene alzato a 1 si resetta la memoria
@@ -352,7 +319,7 @@ entity project_reti_logiche is
             o_done : out std_logic;
             o_en : out std_logic;
             o_we : out std_logic;
-             o_data : out std_logic_vector (7 downto 0));
+            o_data : out std_logic_vector (7 downto 0));
 end project_reti_logiche;
 
 architecture Behavioral of project_reti_logiche is
@@ -371,7 +338,6 @@ component memoria_interna is
             o_mem_west : out std_logic_vector (7 downto 0);   
             o_mem_est : out std_logic_vector (7 downto 0));
 end component;
-
 
 component compara_soglia is
 Port (     clk : in std_logic;
@@ -401,6 +367,9 @@ Port(
 );
 end component;
 
+--Stati per FSM
+type state_type is (reset,iniziale,confronto,stato_moltiplica, salva, aspetta);
+signal stato_corrente, stato_prossimo : state_type;
 
 --Segnali per gestione memoria
 signal soglia, colonne, righe, nord, sud, west, est, input_memoria: std_logic_vector(7 downto 0);
@@ -410,7 +379,7 @@ signal addr_memoria: std_logic_vector(2 downto 0); -- gestire con un componente 
 signal set_addr, set_coor, fine, check : std_logic;
 signal coordc, coordr: std_logic_vector (7 downto 0);
 -- segnali di supporto da rimuovere per la sintesi
-signal phase: std_logic; -- tiene traccia tra caricamento valori e fase di confronto
+signal phase: std_logic_vector(1 downto 0); -- tiene traccia tra caricamento valori e fase di confronto
 signal moltiplica: std_logic_vector(15 downto 0);
 signal rst, arst: std_logic;
 signal productphase: std_logic_vector (1 downto 0);
@@ -427,117 +396,127 @@ begin
      
      COMPARE: compara_soglia port map(clk => i_clk, i_soglia =>soglia,i_value => i_data, o_result => check);
      
-     
-     
-    inizializzazione: process(i_clk, i_rst) begin
-    if(i_clk'event and i_clk='1' and i_rst='1') then
-        set_memoria <= '0';
-        phase <= '1';
-        set_addr <= '0';
-        set_coor <= '0';
-    end if;
-    end process;
-   
-    addr_memoria <= "000";
     
-    caricavalori: process(i_clk, i_start) begin
-    if(i_clk'event and i_clk = '1' and phase = '1') then
-        o_en <= '1';
-        o_we <= '0';
-        set_memoria <= '1';
-        set_addr <= '1';
-        input_memoria <= i_data;
-    elsif (i_clk'event and i_clk ='0' and phase = '1') then
-        set_addr <= '0';
-        set_memoria <= '0';
-        o_en <= '0';
-        if (addr_memoria = "010" ) then
+     registroStati: process(i_start, i_clk)
+     begin
+       if i_rst='1' then
+         stato_corrente <= reset;
+       elsif (i_clk'event and i_clk='1') then
+         stato_corrente <= stato_prossimo;
+       end if;
+     end process;
+    
+    funzione: process(stato_corrente)
+    begin
+    case stato_corrente is
+        when reset =>
+           set_memoria <= '0';
+           phase <= "00";
+           set_addr <= '0';
+           set_coor <= '0';
+           addr_memoria <= "000";
+           stato_prossimo <= iniziale;
+        when iniziale =>
+           if(phase = "00") then
+            o_en <= '1';
+            o_we <= '0';
+            set_memoria <= '1';
+            set_addr <= '1';
+            input_memoria <= i_data;            
+           elsif(phase = "01") then
+            o_en <= '1';
+            o_we <= '0';
+            set_memoria <= '1';
+            set_addr <= '1';
+            input_memoria <= i_data;
+            phase <= "01";
+           elsif (addr_memoria = "010" ) then
             addr_memoria <= "111";
-            phase <= '0';
-         else addr_memoria <= addr_memoria + "001";
+            phase <= "10";
+            stato_prossimo <= confronto;
+           else addr_memoria <= addr_memoria + "001";
+           end if;
+         when confronto =>
+            if(phase = "10" and fine = '0' ) then
+            set_addr <= '1';
+            set_coor <=  '1';
+            set_memoria <= '0';
+             if(check = '1') then
+             -- se il confronto è positivo iniziamo a controllare se si deve aggiornare la memoria
+                 if (est = "XXXXXXXX") then
+                     if(addr_memoria = "111")then
+                     set_memoria <= '1';    
+                     addr_memoria <= "011";
+                     input_memoria <= coordr;
+                     elsif(addr_memoria = "011") then
+                     set_memoria <= '1';    
+                     addr_memoria <= "100";
+                     input_memoria <= coordr;
+                     elsif(addr_memoria = "101") then
+                     set_memoria <= '1';    
+                     addr_memoria <= "101";
+                     input_memoria <= coordc;
+                     elsif(addr_memoria = "101") then
+                     set_memoria <= '1';    
+                     addr_memoria <= "110";
+                     input_memoria <= coordc;
+                     end if;
+                 else
+                     if(coordr < nord) then
+                     set_memoria <= '1';    
+                     addr_memoria <= "011";
+                     input_memoria <= coordr; 
+                     elsif(coordr > sud) then
+                     set_memoria <= '1';    
+                     addr_memoria <= "100";
+                     set_memoria <= '0'; 
+                     elsif (coordc < west) then
+                     set_memoria <= '1';    
+                     addr_memoria <= "101";
+                     input_memoria <= coordr;
+                     set_memoria <= '0';
+                     elsif (coordc > est) then
+                     set_memoria <= '1';    
+                     addr_memoria <= "110";
+                     input_memoria <= coordr;                          
+                     end if;           
+                 end if;
+             end if;
+         elsif(fine='1') then
+            stato_prossimo <= stato_moltiplica;
          end if;
-    end if;
-    end process;
-    
-    confrontavalori: process begin
-    if(i_clk'event and i_clk = '1' and phase = '0' and fine = '0' ) then
-        set_addr <= '1';
-        set_coor <=  '1';
-        if(check = '1') then
-        -- se il confronto è positivo iniziamo a controllare se si deve aggiornare la memoria
-            if (nord = "XXXXXXXX") then
-                set_memoria <= '1';    
-                addr_memoria <= "011";
-                input_memoria <= coordr;
-                wait until i_clk'event and i_clk='0';
-                set_memoria <= '1';    
-                addr_memoria <= "100";
-                input_memoria <= coordr;
-                wait until i_clk'event and i_clk='0';
-                set_memoria <= '1';    
-                addr_memoria <= "101";
-                input_memoria <= coordc;
-                wait until i_clk'event and i_clk='0';
-                set_memoria <= '1';    
-                addr_memoria <= "110";
-                input_memoria <= coordc;
-                wait until i_clk'event and i_clk='0';
-                set_memoria <= '0'; 
-            else
-                if(coordr < nord) then
-                set_memoria <= '1';    
-                addr_memoria <= "011";
-                input_memoria <= coordr; 
-                wait until i_clk'event and i_clk='0';
-                set_memoria <= '0'; 
-                elsif(coordr > sud) then
-                set_memoria <= '1';    
-                addr_memoria <= "100";
-                input_memoria <= coordr;
-                wait until i_clk'event and i_clk='0';
-                set_memoria <= '0'; 
-                elsif (coordc < west) then
-                set_memoria <= '1';    
-                addr_memoria <= "101";
-                input_memoria <= coordr;
-                wait until i_clk'event and i_clk='0';
-                set_memoria <= '0';
-                elsif (coordc > est) then
-                set_memoria <= '1';    
-                addr_memoria <= "110";
-                input_memoria <= coordr;
-                wait until i_clk'event and i_clk='0';
-                set_memoria <= '0';                               
-                end if;           
+         when stato_moltiplica =>
+            moltiplica <= ( sud - nord + "00000001") * (est - west + "00000001");
+            productphase <= "00";
+            stato_prossimo <= salva;
+         when salva =>
+            if(fine ='1' and productphase = "00") then
+            rst <= '1';
+            o_en <= '1';
+            o_we <= '1';
+            o_data <= moltiplica (15 downto 8);
+            productphase <= "01";
+            elsif(fine = '1' and productphase = "01") then
+            rst <= '0';
+            o_en <= '0';
+            o_we <= '0';
+            set_addr <= '1';
+            productphase <= "10";
+            elsif(fine = '1' and productphase = "10") then
+            o_en <= '1';
+            o_we <= '1';
+            o_data <= moltiplica (7 downto 0);
+            productphase <= "11";
+            elsif(fine = '1' and productphase = "11") then
+            o_done <= '1';
+            fine <= '0';
+            elsif(fine = '0') then
+            o_done <= '1';
+            stato_prossimo <= aspetta;
             end if;
-        end if;
-    end if;
-    end process;
-    
-    moltiplicazione: process(fine) begin
-    if (fine='1') then
-    moltiplica <= ( sud - nord + "00000001") * (est - west + "00000001");
-    productphase <= "01";
-    end if;
-    end process;
-    
-    salvataggio: process(i_clk,moltiplica) begin
-        if(i_clk'event and i_clk= '1' and fine ='1' and productphase = "01") then
-        rst <= '1';
-        o_en <= '1';
-        o_we <= '1';
-        o_data <= moltiplica (15 downto 8);
-        productphase <= "11";
-        elsif(i_clk'event and i_clk = '0'and fine ='1') then
-        rst <= '0';
-        elsif(i_clk'event and i_clk = '1' and fine = '1' and productphase = "11") then
-        set_addr <= '1';
-        o_data <= moltiplica (7 downto 0);
-        o_done <= '1';
-        productphase <= "00";
-        elsif(i_clk'event and i_clk = '0' and fine = '1' and productphase = "00") then
-        o_done <= '0';
-        end if;
+          when aspetta => 
+            o_done <= '0';
+    end case;
     end process;
     
 end Behavioral;
