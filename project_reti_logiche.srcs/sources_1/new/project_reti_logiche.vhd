@@ -368,7 +368,7 @@ Port(
 end component;
 
 --Stati per FSM
-type state_type is (reset,iniziale,confronto,stato_moltiplica, salva, aspetta);
+type state_type is (reset, shift_memoria,iniziale,confronto,stato_moltiplica, salva, aspetta);
 signal stato_corrente, stato_prossimo : state_type;
 
 --Segnali per gestione memoria
@@ -399,7 +399,7 @@ begin
     
      registroStati: process(i_start, i_clk)
      begin
-       if i_rst='1' then
+       if (i_rst='1') then
          stato_corrente <= reset;
        elsif (i_clk'event and i_clk='1') then
          stato_corrente <= stato_prossimo;
@@ -415,7 +415,17 @@ begin
            set_addr <= '0';
            set_coor <= '0';
            addr_memoria <= "000";
-           stato_prossimo <= iniziale;
+           stato_prossimo <= shift_memoria;
+        when shift_memoria =>
+           if (phase = "00") then
+              set_addr <= '1';
+              phase <= "01";
+           elsif(phase = "01") then
+              phase <= "10";
+           elsif(phase ="10") then
+              phase <= "00";
+              stato_prossimo <= iniziale;
+           end if;
         when iniziale =>
            if(phase = "00") then
             o_en <= '1';
