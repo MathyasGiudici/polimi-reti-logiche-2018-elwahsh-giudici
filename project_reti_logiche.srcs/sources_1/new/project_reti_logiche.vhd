@@ -78,7 +78,6 @@ signal prossimo_address: std_logic_vector (15 downto 0);
 -- segnali di supporto da rimuovere per la sintesi
 signal phase: std_logic_vector(1 downto 0); -- tiene traccia tra caricamento valori e fase di confronto
 signal moltiplica: std_logic_vector(15 downto 0);
-signal rst, arst: std_logic;
 signal productphase: std_logic_vector (1 downto 0);
 
 begin
@@ -87,7 +86,7 @@ begin
      begin
        if (i_rst='1') then
          stato_corrente<= reset;
-       elsif (rising_edge(i_clk)) then
+       elsif (i_clk'event and i_clk='1') then
          stato_corrente <= stato_prossimo;
        end if;
      end process;
@@ -96,7 +95,7 @@ begin
     begin
     case stato_corrente is
         when reset =>
---          if (i_clk'event and i_clk='0') then
+          if (i_clk'event and i_clk='0') then
             if(i_start = '0') then 
                stato_prossimo <= reset;
             elsif(i_start='1') then
@@ -114,9 +113,9 @@ begin
                 o_done <= '0';
                 stato_prossimo <= iniziale;
             end if;
---           end if;
+           end if;
         when iniziale =>
---           if (i_clk'event and i_clk='0') then
+           if (i_clk'event and i_clk='0') then
             if(phase = "00") then
                 colonne <= i_data;
                 o_address <="0000000000000011";
@@ -137,10 +136,10 @@ begin
                 phase <= "00";
                 stato_prossimo <= confronto;
             end if;
---           end if;
+           end if;
          when confronto =>
---            if (i_clk'event and i_clk='0') then
-              if (coordc = colonne and coordr = righe) then
+            if (i_clk'event and i_clk='0') then
+              if (coordr = righe and coordc = colonne ) then
                  o_address <= "0000000000000000";
                  prossimo_address <= "0000000000000001";
                  o_en <= '0';
@@ -154,10 +153,9 @@ begin
                  if(coordc = colonne) then
                    coordc <= "00000000";
                    coordr <= coordr + "00000001";
-                 elsif(coordc /= coordc) then
+                 elsif(coordc /= colonne) then
                    coordc <= coordc + "00000001";
                  end if;
-                 stato_prossimo <= confronto;
              end if;
              if(i_data >= soglia) then
                  if (nord = "ZZZZZZZZ") then
@@ -173,19 +171,23 @@ begin
                     elsif(coordc < west) then
                        west <= coordc;                                
                     elsif(coordc > est) then
-                       est <= coordr;
+                       est <= coordc;
                     end if;
                  end if; -- fine if dove setto 
              end if; -- fine controllo soglia
---           end if; -- fien if rising_edge
+           end if; -- fien if rising_edge
          when stato_moltiplica =>
---            if (i_clk'event and i_clk='0') then
-                moltiplica <= ( sud - nord + "00000001") * (est - west + "00000001");
+            if (i_clk'event and i_clk='0') then
+                if(nord = "ZZZZZZZZ" and sud = "ZZZZZZZZ" and west = "ZZZZZZZZ" and est = "ZZZZZZZZ") then
+                    moltiplica <= "0000000000000000";
+                elsif (nord /= "ZZZZZZZZ" or sud /= "ZZZZZZZZ" or west /= "ZZZZZZZZ" or est /= "ZZZZZZZZ") then
+                    moltiplica <= ( sud - nord  ) * (est - west);
+                end if;
                 productphase <= "00";
                 stato_prossimo <= salva;
---            end if;
+            end if;
          when salva =>
---            if (i_clk'event and i_clk='0') then
+            if (i_clk'event and i_clk='0') then
                 if(productphase = "00") then
                     o_en <= '1';
                     o_we <= '1';
@@ -199,17 +201,20 @@ begin
                 elsif(productphase = "10") then
                     o_en <= '1';
                     o_we <= '1';
+                    o_done <= '1';
                     o_data <= moltiplica (7 downto 0);
                     productphase <= "11";
                 elsif(productphase = "11") then
-                    o_done <= '1';
+                    o_en <= '1';
+                    o_we <= '1';
+                    o_done <= '0';
                     stato_prossimo <= aspetta;
                 end if;
---            end if;
+            end if;
           when aspetta => 
---            if (i_clk'event and i_clk='0') then
+            if (i_clk'event and i_clk='0') then
                 o_done <= '0';
---            end if;
+            end if;
     end case;
     end process;
     
