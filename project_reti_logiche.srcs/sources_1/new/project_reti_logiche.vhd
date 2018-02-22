@@ -191,7 +191,7 @@ begin
                 if(productphase = "00") then
                     o_en <= '1';
                     o_we <= '1';
-                    o_data <= moltiplica (15 downto 8);
+                    o_data <= moltiplica (7 downto 0);
                     productphase <= "01";
                 elsif(productphase = "01") then
                     o_en <= '0';
@@ -202,7 +202,7 @@ begin
                     o_en <= '1';
                     o_we <= '1';
                     o_done <= '1';
-                    o_data <= moltiplica (7 downto 0);
+                    o_data <= moltiplica (15 downto 8);
                     productphase <= "11";
                 elsif(productphase = "11") then
                     o_en <= '1';

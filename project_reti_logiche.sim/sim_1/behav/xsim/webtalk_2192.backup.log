@@ -2,13 +2,13 @@
 # Webtalk v2017.3.1 (64-bit)
 # SW Build 2035080 on Fri Oct 20 14:20:01 MDT 2017
 # IP Build 2034413 on Fri Oct 20 15:56:25 MDT 2017
-# Start of session at: Thu Feb 22 11:45:01 2018
-# Process ID: 3404
+# Start of session at: Thu Feb 22 11:42:20 2018
+# Process ID: 2192
 # Current directory: C:/Users/Virtual Machine/project_reti_logiche/project_reti_logiche.sim/sim_1/behav/xsim
-# Command line: wbtcv.exe -mode batch -source C:/Users/Virtual Machine/project_reti_logiche/project_reti_logiche.sim/sim_1/behav/xsim/xsim.dir/project_reti_logiche_behav/webtalk/xsim_webtalk.tcl -notrace
+# Command line: wbtcv.exe -mode batch -source C:/Users/Virtual Machine/project_reti_logiche/project_reti_logiche.sim/sim_1/behav/xsim/xsim.dir/project_tb_behav/webtalk/xsim_webtalk.tcl -notrace
 # Log file: C:/Users/Virtual Machine/project_reti_logiche/project_reti_logiche.sim/sim_1/behav/xsim/webtalk.log
 # Journal file: C:/Users/Virtual Machine/project_reti_logiche/project_reti_logiche.sim/sim_1/behav/xsim\webtalk.jou
 #-----------------------------------------------------------
 source C:/Users/Virtual -notrace
 couldn't read file "C:/Users/Virtual": no such file or directory
-INFO: [Common 17-206] Exiting Webtalk at Thu Feb 22 11:45:01 2018...
+INFO: [Common 17-206] Exiting Webtalk at Thu Feb 22 11:42:20 2018...
