@@ -117,13 +117,13 @@ begin
         when iniziale =>
            if (i_clk'event and i_clk='0') then
             if(phase = "00") then
-                colonne <= i_data;
+                colonne <= i_data - "00000001";
                 o_address <="0000000000000011";
                 o_en <= '1';
                 o_we <= '0'; 
                 phase <= "01";           
             elsif(phase   = "01") then
-                righe <= i_data;
+                righe <= i_data - "00000001";
                 o_address <="0000000000000100"; 
                 o_en <= '1';
                 o_we <= '0';                
@@ -139,24 +139,6 @@ begin
            end if;
          when confronto =>
             if (i_clk'event and i_clk='0') then
-              if (coordr = righe and coordc = colonne ) then
-                 o_address <= "0000000000000000";
-                 prossimo_address <= "0000000000000001";
-                 o_en <= '0';
-                 o_we <= '0'; 
-                 stato_prossimo <= stato_moltiplica;
-             elsif (coordc /= colonne or coordr /= righe) then
-                 o_address <= prossimo_address;
-                 prossimo_address <= prossimo_address + "0000000000000001";
-                 o_en <= '1';
-                 o_we <= '0';                    
-                 if(coordc = colonne) then
-                   coordc <= "00000000";
-                   coordr <= coordr + "00000001";
-                 elsif(coordc /= colonne) then
-                   coordc <= coordc + "00000001";
-                 end if;
-             end if;
              if(i_data >= soglia) then
                  if (nord = "ZZZZZZZZ") then
                     nord <= coordr;
@@ -164,24 +146,39 @@ begin
                     est <= coordc;
                     west <= coordc;
                  elsif (nord /= "ZZZZZZZZ")then
-                    if(coordr < nord) then
-                       nord <= coordr;
-                    elsif(coordr > sud) then
-                       sud <= coordr;                       
-                    elsif(coordc < west) then
+                    sud <= coordr;                       
+                    if(coordc < west) then
                        west <= coordc;                                
                     elsif(coordc > est) then
                        est <= coordc;
                     end if;
                  end if; -- fine if dove setto 
              end if; -- fine controllo soglia
+             if (coordr = righe and coordc = colonne ) then
+                  o_address <= "0000000000000000";
+                  prossimo_address <= "0000000000000001";
+                  o_en <= '0';
+                  o_we <= '0'; 
+                  stato_prossimo <= stato_moltiplica;
+              elsif (coordc /= colonne or coordr /= righe) then
+                  o_address <= prossimo_address;
+                  prossimo_address <= prossimo_address + "0000000000000001";
+                  o_en <= '1';
+                  o_we <= '0';                    
+                  if(coordc = colonne) then
+                    coordc <= "00000000";
+                    coordr <= coordr + "00000001";
+                  elsif(coordc /= colonne) then
+                    coordc <= coordc + "00000001";
+                  end if;
+              end if;
            end if; -- fien if rising_edge
          when stato_moltiplica =>
             if (i_clk'event and i_clk='0') then
                 if(nord = "ZZZZZZZZ" and sud = "ZZZZZZZZ" and west = "ZZZZZZZZ" and est = "ZZZZZZZZ") then
                     moltiplica <= "0000000000000000";
                 elsif (nord /= "ZZZZZZZZ" or sud /= "ZZZZZZZZ" or west /= "ZZZZZZZZ" or est /= "ZZZZZZZZ") then
-                    moltiplica <= ( sud - nord  ) * (est - west);
+                    moltiplica <= ( sud - nord + "00000001" ) * (est - west + "00000001");
                 end if;
                 productphase <= "00";
                 stato_prossimo <= salva;
