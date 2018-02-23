@@ -18,35 +18,6 @@
 -- 
 ----------------------------------------------------------------------------------
 
-
---------------------------------------------------------------------------------
--- Company: El Wahsh - Giudici
--- Engineer: 
--- 
--- Create Date: 22.12.2017 16:40:01
--- Design Name: 
--- Module Name: project_reti_logiche - Behavioral
--- Project Name: 
--- Target Devices: 
--- Tool Versions: 
--- Description: 
--- 
--- Dependencies: 
--- 
--- Revision:
--- Revision 0.01 - File Created
--- Additional Comments:
--- 
-----------------------------------------------------------------------------------
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
-
--- Uncomment the following library declaration if instantiating
--- any Xilinx leaf cells in this code.
---library UNISIM;
---use UNISIM.VComponents.all;
-
 library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.std_logic_unsigned.all;
@@ -75,10 +46,10 @@ signal nord, sud, west, est: std_logic_vector(7 downto 0);
 signal coordc, coordr: std_logic_vector (7 downto 0);
 signal prossimo_address: std_logic_vector (15 downto 0);
 
--- segnali di supporto da rimuovere per la sintesi
+-- Segnali di supporto
 signal phase: std_logic_vector(1 downto 0); -- tiene traccia tra caricamento valori e fase di confronto
-signal moltiplica: std_logic_vector(15 downto 0);
-signal productphase: std_logic_vector (1 downto 0);
+signal moltiplica: std_logic_vector(15 downto 0); -- contiene il risultato del calcolo dell'area
+signal productphase: std_logic_vector (1 downto 0); -- tiene traccia della fase di caricamento in memoria del risultato della moltiplicazione
 
 begin
 
