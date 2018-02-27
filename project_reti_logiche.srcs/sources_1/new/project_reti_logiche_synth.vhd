@@ -73,7 +73,6 @@ begin
                 west <= "ZZZZZZZZ";
                 est <= "ZZZZZZZZ";
                 o_address <="0000000000000010";
-                prossimo_address <="0000000000000110";
                 coordr <="00000001";
                 coordc <="00000001"; 
                 phase <= "00";
@@ -97,13 +96,19 @@ begin
                 o_we <= '0';                
                 phase <= "10";
              when "10" =>
-                soglia <= i_data;
-                o_address <="0000000000000101";
-                o_en <= '1';
-                o_we <= '0';                 
+                soglia <= i_data;                     
                 phase <= "00";
-                stato_prossimo <= confronto;
-              
+                if (righe="00000000" or colonne="00000000") then
+                    stato_prossimo <= stato_moltiplica;
+                    o_address <="0000000000000000";
+                    prossimo_address <="0000000000000001";
+                else
+                    stato_prossimo <= confronto;
+                    o_address <="0000000000000101";
+                    prossimo_address <="0000000000000110";
+                    o_en <= '1';
+                    o_we <= '0';  
+                end if;
              when others => stato_prossimo <= aspetta;
                 end case;
          when confronto =>       
@@ -122,15 +127,14 @@ begin
                     end if;
                  end if; -- fine if dove setto 
              end if; -- fine controllo soglia
-             
-            
-             if (coordr = righe and coordc = colonne ) then
+                
+             if (coordr = righe and coordc = colonne) then
                   o_address <= "0000000000000000";
                   prossimo_address <= "0000000000000001";
                   o_en <= '0';
                   o_we <= '0'; 
                   stato_prossimo <= stato_moltiplica;
-              else
+             else
                   o_address <= prossimo_address;
                   prossimo_address <= prossimo_address + "0000000000000001";
                   o_en <= '1';

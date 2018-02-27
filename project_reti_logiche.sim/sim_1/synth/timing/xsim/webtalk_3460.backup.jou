@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Webtalk v2017.3.1 (64-bit)
+# SW Build 2035080 on Fri Oct 20 14:20:01 MDT 2017
+# IP Build 2034413 on Fri Oct 20 15:56:25 MDT 2017
+# Start of session at: Fri Feb 23 14:30:18 2018
+# Process ID: 3460
+# Current directory: C:/Users/Virtual Machine/project_reti_logiche/project_reti_logiche.sim/sim_1/synth/timing/xsim
+# Command line: wbtcv.exe -mode batch -source C:/Users/Virtual Machine/project_reti_logiche/project_reti_logiche.sim/sim_1/synth/timing/xsim/xsim.dir/project_tb_time_synth/webtalk/xsim_webtalk.tcl -notrace
+# Log file: C:/Users/Virtual Machine/project_reti_logiche/project_reti_logiche.sim/sim_1/synth/timing/xsim/webtalk.log
+# Journal file: C:/Users/Virtual Machine/project_reti_logiche/project_reti_logiche.sim/sim_1/synth/timing/xsim\webtalk.jou
+#-----------------------------------------------------------
+source C:/Users/Virtual -notrace
