@@ -36,7 +36,7 @@ end project_reti_logiche;
 architecture Behavioral of project_reti_logiche is
 
 --Stati per FSM
-type state_type is (reset,iniziale,confronto,stato_moltiplica, salva, aspetta);
+type state_type is (reset,iniziale,confronto,stato_moltiplica, salva);
 signal stato_corrente, stato_prossimo : state_type;
 
 --Segnali per gestione memoria
@@ -109,7 +109,7 @@ begin
                     o_en <= '1';
                     o_we <= '0';  
                 end if;
-             when others => stato_prossimo <= aspetta;
+             when others => stato_prossimo <= reset;
                 end case;
          when confronto =>       
              if(i_data >= soglia) then
@@ -178,13 +178,10 @@ begin
                     o_en <= '1';
                     o_we <= '1';
                     o_done <= '0';
-                    stato_prossimo <= aspetta;
+                    stato_prossimo <= reset;
                     
-                when others => stato_prossimo <= aspetta;
+                when others => stato_prossimo <= reset;
               end case;
-        
-          when aspetta => 
-                o_done <= '0';
      
           when others => o_done <= '0';
     end case;
