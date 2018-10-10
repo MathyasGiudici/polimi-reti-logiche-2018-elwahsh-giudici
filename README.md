@@ -1,2 +1,2 @@
-# project_reti_logiche
+# Progetto di Reti Logiche (1 CFU)
 
